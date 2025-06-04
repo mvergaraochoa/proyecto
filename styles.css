@@ -1,0 +1,1156 @@
+/* Estilos generales */
+    body {
+      display: flex;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    .sidebar {
+      width: 220px;
+      background-color: #f0f0f0;
+      padding: 10px;
+      border-right: 1px solid #ccc;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .sidebar h3 {
+      text-align: center;
+    }
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .sidebar li {
+      margin: 8px 0;
+      cursor: pointer;
+      padding: 6px;
+      background-color: #e0e0e0;
+      border-radius: 4px;
+    }
+    .sidebar li:hover {
+      background-color: #d0d0d0;
+    }
+	
+	/* ============== ESTILOS PARA BOTONES DEL SIDEBAR ============== */
+	.sidebar-button {
+	  display: block; /* Para que ocupe todo el ancho disponible */
+	  width: calc(100% - 10px); /* Ancho completo menos un pequeño margen */
+	  margin: 8px auto 10px auto; /* Margen similar a los <li> para consistencia */
+	  padding: 10px 8px; /* Espaciado interno, más alto que ancho */
+	  font-size: 0.9em; /* Tamaño de fuente ligeramente más pequeño */
+	  font-weight: bold;
+	  text-align: left; /* Alineación del texto a la izquierda, como en la imagen */
+	  background-color: #e9e9e9; /* Un gris claro, similar al de los <li> pero un poco diferente */
+	  color: #333; /* Color de texto oscuro */
+	  border: 1px solid #d0d0d0; /* Borde sutil */
+	  border-radius: 4px; /* Bordes redondeados como los <li> */
+	  cursor: pointer;
+	  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out; /* Transición suave */
+	}
+
+	.sidebar-button:hover {
+	  background-color: #dcdcdc; /* Un poco más oscuro al pasar el mouse */
+	  border-color: #c0c0c0;
+	}
+
+	.sidebar-button:active {
+	  background-color: #cfcfcf; /* Aún más oscuro al hacer clic */
+	}
+    .content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+      table-layout: fixed;
+    }
+    th, td { /* Aplicar a ambos */
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+      word-break: break-word; /* Para palabras largas */
+      /* Considerar también overflow-wrap para compatibilidad y control */
+      overflow-wrap: break-word; /* Sinónimo de word-break: break-word, más moderno */
+      hyphens: auto; /* Opcional: para permitir división silábica si el navegador lo soporta y el idioma está definido */
+    }
+    th {
+      background-color: #f5f5f5; /* Ya lo tienes, era #c8e6c9 en el HTML inline */
+      vertical-align: middle; /* Alinear verticalmente el texto del encabezado en el medio */
+    }
+    #audioPlayback {
+      display: none;
+      margin-top: 10px;
+      width: 100%;
+    }
+    #uploadForm {
+        margin-top: 15px;
+    }
+    #recordingActions button, #uploadForm button,
+    #startBtn, #pauseBtn, #resumeBtn, #finishBtn { /* Agregados nuevos botones */
+        padding: 8px 12px;
+        cursor: pointer;
+        margin-right: 5px; /* Espacio entre botones de grabación */
+    }
+    /* Estilo para botones deshabilitados */
+    button:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    #tablaConsultas {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+      table-layout: fixed;
+    }
+    
+    #tablaConsultas th {
+      padding: 8px;
+      text-align: left;
+      vertical-align: middle;
+      border: 1px solid #ccc;
+      background-color: #c8e6c9;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+    
+    /* Estilos para TODAS las celdas <td> del tbody */
+    #tablaConsultas tbody td {
+        padding: 8px; /* Padding se mantiene */
+        vertical-align: top; 
+        border: 1px solid #ccc;
+        /* QUITAR height y box-sizing de aquí. Dejamos que la celda se ajuste a su contenido (el div) */
+        /* height: 76px !important; */
+        /* box-sizing: border-box !important; */
+        /* overflow: hidden; /* Quitar overflow de la TD también */
+    }
+    
+    /* Div interno para las celdas con contenido largo (Motivo, Diagnóstico, Tratamiento) */
+    .celda-contenido-scrollable {
+        height: 60px;       /* O el valor deseado, ej., 110px para ~6 líneas */
+        max-height: 60px;   /* Para reforzar la altura */
+        overflow: hidden;   /* CRUCIAL */
+        display: block;     /* IMPORTANTE */
+        position: relative; /* Puede ayudar */
+        word-break: break-word;
+        white-space: pre-line;
+        line-height: 1.4;
+        /* font-size: 14px; /* Si es necesario */
+    }
+    
+    /* Ajustes de ancho para columnas específicas en la tabla de consultas */
+    /* Columna N° (Nueva primera columna) */
+    #tablaConsultas th:nth-child(1),
+    #tablaConsultas td:nth-child(1) {
+      width: 3%; text-align: center; 
+    }
+    
+    /* Columna Fecha y Hora (Ahora es la segunda columna) */
+    #tablaConsultas th:nth-child(2),
+    #tablaConsultas td:nth-child(2) {
+      width: 9%; /* Mantenemos el ancho que tenías para la fecha */
+    }
+    
+    /* Columna Motivo Consulta (Ahora es la tercera columna) */
+    #tablaConsultas th:nth-child(3),
+    #tablaConsultas td:nth-child(3) {
+      width: 26%; 
+    }
+    
+    /* Columna Diagnóstico (Ahora es la cuarta columna) */
+    #tablaConsultas th:nth-child(4),
+    #tablaConsultas td:nth-child(4) {
+      width: 26%;
+    }
+    
+    /* Columna Tratamiento - Ordenes Médicas (Ahora es la quinta columna) */
+    #tablaConsultas th:nth-child(5),
+    #tablaConsultas td:nth-child(5) {
+      width: 26%;
+    }
+    #tablaConsultas th:nth-child(6), 
+    #tablaConsultas td:nth-child(6) { 
+        width: 10%; text-align: center;
+    }
+    
+    .detalle-columna-contenido {
+        min-height: 100px; /* Altura mínima para las columnas /
+        max-height: 400px; / Altura máxima antes de scroll /
+        overflow-y: auto;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        white-space: pre-line; / Para respetar saltos de línea del texto original */
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    #modalVerDetallesConsulta h4 {
+        margin-top: 0;
+        margin-bottom: 8px;
+        color: #333;
+    }
+
+	.blink-red {
+	  color: red;
+	  animation: blink-animation 1s steps(2, start) infinite;
+	}
+
+	@keyframes blink-animation {
+	  to {
+		visibility: hidden;
+	  }
+	}
+	
+	/* Si tienes IDs diferentes para los botones de "crear" como en el HTML: */
+	#btnNuevoPacienteMedico, 
+	#btnGenerarCodigoPacienteAdmin {
+	  background-color: #c8e6c9; /* Verde claro para acciones de "crear" */
+	  border-color: #a5d6a7;
+	  color: #255d28; /* Texto verde oscuro */
+	}
+	#btnNuevoPacienteMedico:hover,
+	#btnGenerarCodigoPacienteAdmin:hover {
+	  background-color: #b7d8b8;
+	}
+	
+	.status-grabacion-inline {
+        display: block; /* Para que ocupe su propia línea y pueda centrarse */
+        text-align: center;
+        margin-top: 4px; /* Pequeño espacio arriba */
+        font-size: 0.85em;
+        font-style: italic;
+        min-height: 1.2em; /* Evita saltos de layout cuando el texto aparece/desaparece */
+        /* color: tuColorDeseado; */ /* Si quieres un color específico */
+    }
+	 /* ============== ESTILOS PARA EL MODAL ============== */
+    .modal {
+	  display: none; /* Oculto por defecto, JS lo muestra */
+	  position: fixed; /* Se queda fijo en la pantalla */
+	  z-index: 1000; /* Asegura que esté por encima de otros contenidos */
+	  left: 0;
+	  top: 0;
+	  width: 100%;
+	  height: 100%;
+	  overflow: auto; /* Permite scroll si el contenido es muy largo */
+	  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
+	  padding-top: 60px; /* Espacio para que el modal no quede pegado arriba */
+    }
+
+    .modal-content {
+	  background-color: #fefefe;
+	  margin: 5% auto; /* Centrado vertical (5% desde arriba) y horizontal */
+	  padding: 25px;
+	  border: 1px solid #888;
+	  width: 80%; /* Ancho base, se puede sobreescribir */
+	  max-width: 500px; /* Ancho máximo por defecto */
+	  border-radius: 8px;
+	  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+	  position: relative; /* Para el botón de cierre si lo tuvieras */
+    }
+	
+    /* Estilo específico para el modal de foto si es necesario, ej. más pequeño */
+    #modalCambiarFoto .modal-content {
+        max-width: 500px;
+    }
+
+	.modal-content h2 {
+	  margin-top: 0;
+	  color: #333;
+	  text-align: center;
+	  margin-bottom: 20px;
+	}
+
+	.modal-content p {
+	  line-height: 1.6;
+	  margin-bottom: 15px;
+	  color: #555;
+	}
+
+    .close-button {
+      color: #aaa;
+      float: right; /* Mantener para que funcione con position:relative en modal-content */
+      font-size: 28px;
+      font-weight: bold;
+      /* position: absolute; Ya no es necesario si el float funciona bien con el padding del modal-content */
+      /* top: 10px; */
+      /* right: 20px; */
+      line-height: 1; /* Para mejor alineación vertical del caracter x */
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .modal h2 {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    .btn-accion-icono {
+      background-color: transparent !important; /* Sin fondo, !important para asegurar precedencia si es necesario */
+      border: none !important;                /* Sin borde, !important para asegurar precedencia */
+      padding: 2px 3px; /* Mínimo padding para el área clickeable */
+      cursor: pointer;
+      font-size: 1.3em; /* Tamaño del emoji/icono */
+      color: #555;     /* Color del emoji/icono */
+      line-height: 1;   /* Para mejor alineación vertical del emoji */
+      vertical-align: middle; /* Ayuda a alinear con otros elementos si están en línea */
+      /* Quitar cualquier sombra o efecto de botón por defecto */
+      box-shadow: none;
+      outline: none;
+      /* Para navegadores WebKit (Chrome, Safari) que a veces añaden apariencia de botón */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    .btn-accion-icono:disabled { /* Estilo para cuando están deshabilitados */
+        color: #bbb; /* Un color más tenue */
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    
+    /* Adicional: asegúrate que el contenedor de los botones no añada fondos extraños */
+    .grabacion-inline-controls {
+        display: flex;
+        align-items: center; /* Centra los iconos verticalmente si tienen alturas diferentes */
+        justify-content: center; /* O 'flex-start' si los quieres alineados a la izquierda de la celda */
+        gap: 5px; /* Espacio entre iconos */
+        background-color: transparent; /* Asegurar que el div contenedor no tenga fondo */
+    }
+
+	.btn-accion-icono:hover {
+	  color: #007bff; /* Cambia de color al pasar el mouse, por ejemplo a azul */
+	  opacity: 0.8;   /* O una ligera opacidad */
+	}
+	
+	.detalle-columna-edit {
+        font-family: Arial, sans-serif; /* Heredar o definir fuente */
+        font-size: 14px;          /* Coincidir con .detalle-columna-contenido */
+        line-height: 1.5;         /* Coincidir con .detalle-columna-contenido */
+        padding: 10px;            /* Similar a .detalle-columna-contenido */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;         /* Permitir redimensionar verticalmente */
+    }
+	
+    #tituloModalDetallesConsulta {
+        flex-grow: 1;
+        text-align: center;
+        margin-bottom: 0; /* Si el div contenedor ya tiene margen */
+    }
+	
+    #formNuevoPaciente .form-row, 
+    #formCambiarFoto .form-row,
+    #formModificarPaciente .form-row,
+    #formGestionMedico .form-row { /* Aplicar a todos los formularios de modal */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+
+    #formNuevoPaciente .form-group, 
+    #formCambiarFoto .form-group,
+    #formModificarPaciente .form-group,
+    #formGestionMedico .form-group { /* Aplicar a todos los formularios de modal */
+        display: flex;
+        flex-direction: column;
+        width: calc(50% - 10px); /* Default para 2 columnas, los inline anularán esto si es necesario */
+    }
+    
+	#formNuevoPaciente .form-group.full-width, 
+	#formCambiarFoto .form-group.full-width,
+	#formModificarPaciente .form-group.full-width,
+    #formGestionMedico .form-group.full-width { /* Aplicar a todos los formularios de modal */
+        width: 100%;
+    }
+
+    #formNuevoPaciente label, 
+	#formCambiarFoto label,
+	#formModificarPaciente label,
+    #formGestionMedico label { /* Aplicar a todos los formularios de modal */
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    #formNuevoPaciente input[type="text"],
+    #formNuevoPaciente input[type="date"],
+    #formNuevoPaciente input[type="tel"],
+    #formNuevoPaciente input[type="url"],
+    #formNuevoPaciente select,
+    #formCambiarFoto input[type="file"],
+	#formModificarPaciente input[type="text"],
+    #formModificarPaciente input[type="date"],
+    #formModificarPaciente input[type="tel"],
+    #formModificarPaciente select,
+    #formGestionMedico input[type="text"],   
+    #formGestionMedico input[type="tel"],    
+    #formGestionMedico input[type="email"],
+    #formGestionMedico select               
+     {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      width: 100%; 
+    }
+    
+    #formNuevoPaciente .form-actions, 
+    #formCambiarFoto .form-actions,
+    #formModificarPaciente .form-actions,
+    #formGestionMedico .form-actions { /* Aplicar a todos los formularios de modal */
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
+
+    #formNuevoPaciente .form-actions button, 
+    #formCambiarFoto .form-actions button,
+    #formModificarPaciente .form-actions button,
+    #formGestionMedico .form-actions button { /* Aplicar a todos los formularios de modal */
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #formNuevoPaciente .form-actions button[type="submit"],
+    #formCambiarFoto .form-actions button[type="submit"],
+    #formModificarPaciente .form-actions button[type="submit"],
+    #formGestionMedico .form-actions button[type="submit"] /* Aplicar a todos los formularios de modal */
+    {
+      background-color: #4CAF50; 
+      color: white;
+      border: none;
+      margin-right: 10px;
+    }
+	
+    #formNuevoPaciente .form-actions button[type="submit"]:hover,
+    #formCambiarFoto .form-actions button[type="submit"]:hover,
+    #formModificarPaciente .form-actions button[type="submit"]:hover,
+    #formGestionMedico .form-actions button[type="submit"]:hover /* Aplicar a todos los formularios de modal */
+     {
+        background-color: #45a049;
+    }
+
+    #formNuevoPaciente .form-actions button[type="button"],
+    #formCambiarFoto .form-actions button[type="button"],
+    #formModificarPaciente .form-actions button[type="button"],
+    #formGestionMedico .form-actions button[type="button"] /* Aplicar a todos los formularios de modal */
+    {
+      background-color: #f44336; 
+      color: white;
+      border: none;
+    }
+	
+    #formNuevoPaciente .form-actions button[type="button"]:hover,
+    #formCambiarFoto .form-actions button[type="button"]:hover,
+    #formModificarPaciente .form-actions button[type="button"]:hover,
+    #formGestionMedico .form-actions button[type="button"]:hover /* Aplicar a todos los formularios de modal */
+    {
+        background-color: #da190b;
+    }
+
+    /* ============== ESTILOS PARA EL LOGIN ============== */
+    #loginScreen {
+      display: none; /* Mostrar por defecto */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      background-color: #f0f2f5;
+	  position: fixed; /* Para asegurar que cubra todo si otros elementos están presentes */
+	  top: 0;
+	  left: 0;
+	  z-index: 2000; /* Encima de appContainer si ambos estuvieran visibles por error */
+    }
+    #loginScreen img { /* Estilo para el logo en la pantalla de login */
+        width: 150px; /* Ajusta según tu logo */
+        margin-bottom: 30px;
+    }
+    #loginForm {
+      background-color: white;
+      padding: 30px 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    #loginForm h2 {
+      margin-top: 0;
+      margin-bottom: 25px;
+      color: #333;
+    }
+    #loginForm .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    #loginForm label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #555;
+    }
+    #loginForm input[type="text"],
+    #loginForm input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    #loginForm button[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff; /* Azul bonito */
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    #loginForm button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+    #loginError {
+      color: red;
+      margin-top: 15px;
+      min-height: 1.2em; /* Para que no salte el layout */
+    }
+	#appContainer {
+		display: none; /* Oculto por defecto, se mostrará con JS */
+		width: 100%;
+		height: 100vh; /* Para que ocupe toda la altura */
+		display: flex; /* Hacemos que appContainer sea el contenedor flex para sidebar y content */
+	}
+    #userInfo {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 0.9em;
+        color: #333;
+    }
+    #userInfo span {
+        font-weight: bold;
+    }
+    #btnLogout {
+        margin-left: 15px;
+        padding: 5px 10px;
+        cursor: pointer;
+        background-color: #f44336;
+        color: white;
+        border: none;
+        border-radius: 4px;
+    }
+	#tablaPacientesAdmin {
+		font-size: 14px; /* Cambia este valor según lo necesites */
+		width: 100%;
+		border-collapse: collapse;
+	}
+
+	#tablaPacientesAdmin th, 
+	#tablaPacientesAdmin td {
+		font-size: 14px; /* Tamaño del texto en celdas */
+		padding: 8px;     /* Espaciado interno */
+		text-align: left; /* Alineación del texto */
+		border: 1px solid #ccc; /* Opcional: para bordes */
+	}
+
+	#tablaMedicosAdmin {
+		font-size: 13px; /* Cambia este valor según lo necesites */
+		width: 100%;
+		border-collapse: collapse;
+	}
+
+	#tablaMedicosAdmin th, 
+	#tablaMedicosAdmin td {
+		font-size: 13px; /* Tamaño del texto en celdas */
+		padding: 8px;     /* Espaciado interno */
+		text-align: left; /* Alineación del texto */
+		border: 1px solid #ccc; /* Opcional: para bordes */
+	}
+	
+	
+	/* === ESTILOS PARA MODAL GESTIÓN DE VACUNAS === */
+
+    #modalGestionVacunas .modal-content {
+        /* max-width: 700px; ya está inline */
+        padding: 20px 25px 25px 25px; /* Ajustar padding */
+    }
+    
+    #modalGestionVacunas h2 {
+        margin-bottom: 25px;
+        font-size: 1.6em;
+    }
+    #modalGestionVacunas h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: #444;
+        font-size: 1.15em;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+    }
+    
+    /* Estilos para el formulario de añadir vacuna */
+    #formAnadirVacunaPaciente .form-group {
+        margin-bottom: 18px;
+    }
+    #formAnadirVacunaPaciente label {
+        font-weight: normal; /* O mantener bold si prefieres */
+        margin-bottom: 6px;
+        color: #555;
+    }
+    #formAnadirVacunaPaciente select,
+    #formAnadirVacunaPaciente input[type="date"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    
+    /* Tabla de vacunas aplicadas en el modal */
+    #tablaVacunasDelPaciente {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9em; /* Un poco más pequeño para que quepa más */
+    }
+    #tablaVacunasDelPaciente th,
+    #tablaVacunasDelPaciente td {
+        border: 1px solid #e0e0e0;
+        padding: 8px 10px;
+        text-align: left;
+    }
+    #tablaVacunasDelPaciente th {
+        background-color: #f7f7f7;
+        font-weight: bold;
+    }
+    #tablaVacunasDelPaciente td {
+        background-color: #fff;
+    }
+    #tablaVacunasDelPaciente tr:nth-child(even) td {
+        background-color: #fdfdfd;
+    }
+    
+    /* Estilo para el botón de eliminar (icono de basurero) */
+    #tbodyVacunasDelPaciente .btn-accion-icono { /* Ya tienes esta clase, solo es para asegurar el contexto */
+        background-color: transparent;
+        border: none;
+        color: #dc3545; /* Color rojo para eliminar */
+        font-size: 1.2em; /* Tamaño del icono */
+        padding: 2px; /* Mínimo padding */
+        cursor: pointer;
+        line-height: 1; /* Para mejor alineación del emoji */
+    }
+    #tbodyVacunasDelPaciente .btn-accion-icono:hover {
+        color: #c82333; /* Rojo más oscuro al pasar el mouse */
+    }
+    
+    /* Estilos para los botones principales del modal (Añadir y Cerrar) */
+    #modalGestionVacunas .form-actions {
+        /* margin-top: 25px; ya inline */
+        /* display: flex; ya inline */
+        /* justify-content: space-between; ya inline */
+        /* align-items: center; ya inline */
+        padding-top: 20px;
+        border-top: 1px solid #eee; /* Separador visual */
+    }
+    
+    #btnSubmitAnadirVacuna { /* Estilo heredado de .form-actions button[type="submit"] */
+        /* background-color: #28a745; (verde) */
+        /* color: white; */
+        /* padding: 10px 20px; */
+    }
+    
+    #btnCerrarModalGestionVacunas.btn-secondary { /* Usar una clase para el estilo secundario */
+        background-color: #6c757d; /* Gris */
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    #btnCerrarModalGestionVacunas.btn-secondary:hover {
+        background-color: #5a6268;
+    }
+    
+    	/* === ESTILOS PARA EL MODAL DE BÚSQUEDA DE CARNET RRHH === */
+
+    #modalBuscarCarnetRrhh .modal-content {
+        /* max-width: 450px; ya lo tienes inline, pero es bueno tenerlo en CSS */
+        padding: 25px; /* Un poco más de padding */
+        border-radius: 8px; /* Bordes más redondeados */
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    }
+    
+    #modalBuscarCarnetRrhh h2 {
+        /*text-align: center;*/
+        color: lime !important; /* Color muy obvio */
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 30px !important; /* Tamaño muy obvio */
+    }
+    
+    #modalBuscarCarnetRrhh p { /* Estilo para el párrafo de instrucción */
+        text-align: center;
+        margin-bottom: 20px;
+        color: #555;
+        font-size: 0.95em;
+        line-height: 1.4;
+    }
+    
+    #formBuscarCarnetRrhh .form-group {
+        margin-bottom: 20px; /* Más espacio entre label/input y el siguiente elemento */
+    }
+    
+    #formBuscarCarnetRrhh label {
+        display: block;
+        margin-bottom: 8px; /* Espacio entre label e input */
+        font-weight: bold;
+        color: #444;
+    }
+    
+    #formBuscarCarnetRrhh input[type="text"] {
+        width: 100%; /* Asegurar que tome el ancho completo del .form-group */
+        padding: 12px; /* Padding más generoso */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box; /* Importante para que el padding no desborde */
+        font-size: 1em;
+    }
+    
+    #formBuscarCarnetRrhh input[type="text"]:focus {
+        border-color: #007bff; /* Color al enfocar, puedes usar tu color primario */
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Sombra al enfocar */
+        outline: none;
+    }
+    
+    #buscarCarnetError {
+        /* color: red; ya lo tienes inline */
+        /* text-align: center; ya lo tienes inline */
+        /* margin-bottom: 10px; ya lo tienes inline */
+        min-height: 1.2em; /* Para que no salte el layout si no hay error */
+        font-weight: bold;
+        padding: 5px 0; /* Un poco de espacio vertical */
+    }
+    
+    /* Estilos para los botones en el form-actions del modal de búsqueda */
+    #modalBuscarCarnetRrhh .form-actions {
+        /* justify-content: space-between; (si quieres que se separen como en otros modales) */
+        justify-content: center; /* O centrar si solo hay un botón principal y cancelar */
+        gap: 15px; /* Espacio entre botones si hay varios */
+        margin-top: 25px; /* Más espacio antes de los botones */
+    }
+    
+    #modalBuscarCarnetRrhh .form-actions button {
+        padding: 10px 20px;
+        font-size: 1em;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+    }
+    
+    #modalBuscarCarnetRrhh .form-actions button:active {
+        transform: translateY(1px);
+    }
+    
+    #btnSubmitBuscarCarnet {
+        background-color: #28a745; /* Verde, ejemplo */
+        color: white;
+        border: none;
+    }
+    
+    #btnSubmitBuscarCarnet:hover {
+        background-color: #218838; /* Verde más oscuro al pasar el mouse */
+    }
+    
+    /* #btnCancelBuscarCarnetRrhh tiene background-color: #f44336; inline.
+       Podrías moverlo aquí para consistencia: */
+    #btnCancelBuscarCarnetRrhh {
+       /* background-color: #f44336;  rojo, ejemplo */
+       /* color: white; */
+       border: 1px solid #dc3545; /* Borde para que no se vea tan plano si es color de fondo diferente */
+       background-color: white;
+       color: #dc3545;
+    }
+    
+    #btnCancelBuscarCarnetRrhh:hover {
+        background-color: #f8f9fa; /* Gris muy claro al pasar el mouse */
+        border-color: #bd2130;
+    }
+    
+    
+    /* Asegurar que el botón de cierre (X) también tenga un estilo consistente */
+    #modalBuscarCarnetRrhh .close-button {
+        color: #aaa;
+        /* float: right; ya lo tienes en la clase .close-button general */
+        font-size: 28px;
+        font-weight: bold;
+        transition: color 0.2s ease;
+    }
+    
+    #modalBuscarCarnetRrhh .close-button:hover,
+    #modalBuscarCarnetRrhh .close-button:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+	
+	
+	/* ============================================================ */
+	/* === ESTILOS ESPECÍFICOS PARA MODAL PRIMER LOGIN PASSWORD === */
+	/* ============================================================ */
+
+	#modalPrimerLoginPassword .modal-content {
+	  max-width: 480px; /* Un poco más ancho para este modal específico */
+	}
+
+	#modalPrimerLoginPassword p { /* El párrafo de instrucción */
+	  text-align: center;
+	  font-size: 0.95em;
+	  margin-bottom: 25px;
+	}
+
+	#formPrimerLoginPassword .form-group {
+	  margin-bottom: 20px;
+	}
+
+	#formPrimerLoginPassword label {
+	  display: block;
+	  margin-bottom: 8px;
+	  font-weight: bold;
+	  color: #444;
+	}
+
+	#formPrimerLoginPassword input[type="password"] {
+	  width: calc(100% - 20px); /* Ajusta el padding */
+	  padding: 10px;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	  box-sizing: border-box;
+	  font-size: 1em;
+	}
+
+	#formPrimerLoginPassword input[type="password"]:focus {
+	  border-color: #007bff;
+	  outline: none;
+	  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+	}
+
+	#formPrimerLoginPassword small {
+	  display: block;
+	  margin-top: 5px;
+	  font-size: 0.8em;
+	  color: #777;
+	}
+
+	#primerLoginPasswordError {
+	  color: #dc3545; /* Rojo para errores */
+	  text-align: center;
+	  margin-bottom: 15px;
+	  font-weight: bold;
+	  min-height: 1.2em; /* Para que no salte el layout si no hay error */
+	}
+
+	#formPrimerLoginPassword .form-actions {
+	  text-align: center; /* Centrar el botón */
+	  margin-top: 25px;
+	}
+
+	#btnGuardarNuevoPassword {
+	  background-color: #28a745; /* Verde */
+	  color: white;
+	  padding: 12px 20px;
+	  border: none;
+	  border-radius: 5px;
+	  cursor: pointer;
+	  font-size: 1em;
+	  font-weight: bold;
+	  transition: background-color 0.2s ease-in-out;
+	}
+
+	#btnGuardarNuevoPassword:hover {
+	  background-color: #218838; /* Verde más oscuro */
+	}
+
+	#btnGuardarNuevoPassword:disabled {
+	  background-color: #6c757d; /* Gris cuando está deshabilitado */
+	  cursor: not-allowed;
+	}
+
+	#btnCancelarPrimerLogin {
+	  background-color: #f44336; /* Gris (similar a deshabilitado o acción secundaria) */
+	  color: white;
+	  padding: 12px 20px;
+	  border: none;
+	  border-radius: 5px;
+	  cursor: pointer;
+	  font-size: 1em;
+	  font-weight: bold;
+	  transition: background-color 0.2s ease-in-out;
+	  margin-left: 20px; /* Para separarlo del botón de Actualizar si están en línea */
+	}
+
+	#btnCancelarPrimerLogin:hover {
+	  background-color: #ba2f25; /* Un gris más oscuro */
+	}
+	
+	#btnNuevoPacienteAdmin,
+	#btnNuevoMedicoAdmin {
+	  display: inline-block; /* O block si quieres que ocupe todo el ancho disponible del contenedor */
+	  /* width: auto; O un ancho específico si es inline-block */
+	  margin: 0 0 10px 0; /* Margen inferior, sin margen lateral automático */
+	  padding: 10px 15px; 
+	  font-size: 0.95em; 
+	  font-weight: bold;
+	  text-align: center; 
+	  background-color: #c8e6c9; 
+	  color: #255d28; 
+	  border: 1px solid #a5d6a7; 
+	  border-radius: 4px; 
+	  cursor: pointer;
+	  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out; 
+	}
+
+	#btnNuevoPacienteAdmin:hover,
+	#btnNuevoMedicoAdmin:hover {
+	  background-color: #b7d8b8; 
+	  border-color: #94c795;
+	}
+
+	/* Estilos para la sección de Olvidó Contraseña en el Login */
+	#forgotPasswordLinkContainer a:hover {
+	  text-decoration: underline;
+	}
+
+	#forgotPasswordSection h3 {
+	  margin-top: 0;
+	  margin-bottom: 10px;
+	  color: #333;
+	  font-size: 1.2em;
+	  text-align: center;
+	}
+
+	#forgotPasswordSection .form-group {
+	  margin-bottom: 15px;
+	  text-align: left;
+	}
+
+	#forgotPasswordSection label {
+	  display: block;
+	  margin-bottom: 6px;
+	  font-weight: bold;
+	  color: #555;
+	}
+
+	#forgotPasswordSection input[type="email"] {
+	  width: 100%;
+	  padding: 10px;
+	  border: 1px solid #ddd;
+	  border-radius: 4px;
+	  box-sizing: border-box;
+	}
+
+	#btnSendPasswordReminder {
+	  width: 100%;
+	  padding: 11px;
+	  background-color: #17a2b8; /* Un color cian/informativo */
+	  color: white;
+	  border: none;
+	  border-radius: 4px;
+	  cursor: pointer;
+	  font-size: 15px;
+	  font-weight: bold;
+	}
+
+	#btnSendPasswordReminder:hover {
+	  background-color: #138496;
+	}
+
+	#forgotPasswordMessage.success {
+	  color: green;
+	}
+
+	#forgotPasswordMessage.error {
+	  color: red;
+	}
+
+	#backToLoginLink:hover {
+		text-decoration: underline;
+	}
+	
+	/* Estilos para el dropdown de usuario en #userInfo */
+	#userInfo {
+	  position: absolute; /* O flex si prefieres alinearlo con otros elementos del header */
+	  top: 15px; /* Ajusta según necesites */
+	  right: 20px;
+	  font-size: 0.9em;
+	  color: #333;
+	  z-index: 100; /* Para que el dropdown se vea sobre el contenido */
+	}
+
+	#userDropdownContainer {
+	  /* position: relative; Ya está inline en el HTML */
+	  /* display: inline-block; Ya está inline en el HTML */
+	}
+
+	.user-dropdown-button {
+	  background-color: transparent;
+	  color: #333; /* O el color de tu texto */
+	  padding: 8px 12px;
+	  font-size: 1em; /* Hereda de #userInfo o ajusta */
+	  border: 1px solid transparent; /* Borde transparente para mantener tamaño, o un borde sutil */
+	  border-radius: 4px;
+	  cursor: pointer;
+	  transition: background-color 0.2s ease;
+	}
+
+	.user-dropdown-button:hover,
+	.user-dropdown-button:focus {
+	  background-color: #f0f0f0; /* Un ligero hover */
+	  outline: none;
+	}
+
+	.user-dropdown-button .dropdown-arrow {
+	  margin-left: 5px;
+	  font-size: 0.8em;
+	}
+
+	.dropdown-content {
+	  /* display: none; Ya está inline en el HTML */
+	  position: absolute;
+	  background-color: #f9f9f9;
+	  min-width: 180px; /* Ancho del dropdown */
+	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	  z-index: 1;
+	  right: 0; /* Alineado a la derecha del botón */
+	  top: 100%; /* Justo debajo del botón */
+	  border-radius: 4px;
+	  border: 1px solid #ddd;
+	}
+
+	.dropdown-content a {
+	  color: black;
+	  padding: 12px 16px;
+	  text-decoration: none;
+	  display: block;
+	  font-size: 0.95em;
+	}
+
+	.dropdown-content a:hover {
+	  background-color: #e9e9e9;
+	}
+
+	/* Estilos para el modal de Cambiar Contraseña (similares a otros modales) */
+	#modalChangeUserPassword .modal-content {
+	  max-width: 480px;
+	}
+
+	#formChangeUserPassword .form-group {
+	  margin-bottom: 20px;
+	}
+
+	#formChangeUserPassword label {
+	  display: block;
+	  margin-bottom: 8px;
+	  font-weight: bold;
+	  color: #444;
+	}
+
+	#formChangeUserPassword input[type="password"] {
+	  width: calc(100% - 22px); /* Considerando padding y borde */
+	  padding: 10px;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	  box-sizing: border-box;
+	  font-size: 1em;
+	}
+	#formChangeUserPassword input[type="password"]:focus {
+	   border-color: #007bff;
+	   outline: none;
+	   box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+	}
+
+
+	#formChangeUserPassword small {
+	  display: block;
+	  margin-top: 5px;
+	  font-size: 0.8em;
+	  color: #777;
+	}
+
+	#changeUserPasswordError,
+	#changeUserPasswordSuccess {
+	  text-align: center;
+	  margin-bottom: 15px;
+	  font-weight: bold;
+	  min-height: 1.2em; 
+	}
+	#changeUserPasswordError { color: #dc3545; }
+	#changeUserPasswordSuccess { color: #28a745; }
+
+
+	#formChangeUserPassword .form-actions {
+	  display: flex;
+	  justify-content: flex-end; /* Botones a la derecha */
+	  margin-top: 25px;
+	}
+
+	#formChangeUserPassword .form-actions button {
+	  padding: 10px 15px;
+	  border-radius: 4px;
+	  cursor: pointer;
+	  font-weight: bold;
+	  border: none;
+	}
+
+	#btnSubmitChangeUserPassword {
+	  background-color: #28a745; /* Verde */
+	  color: white;
+	  margin-right: 10px;
+	}
+	#btnSubmitChangeUserPassword:hover {
+	  background-color: #218838;
+	}
+
+	#btnCancelChangeUserPassword {
+	  background-color: #6c757d; /* Gris */
+	  color: white;
+	}
+	#btnCancelChangeUserPassword:hover {
+	  background-color: #5a6268;
+	}
+	
+    #inputBuscarPaciente {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    
+    #btnBuscarPacienteGo,
+    #btnVerTodosPacientes {
+        background-color: #e0e0e0; /* Similar a los <li> */
+        border: 1px solid #d0d0d0;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.85em;
+    }
+    #btnBuscarPacienteGo:hover,
+    #btnVerTodosPacientes:hover {
+        background-color: #d0d0d0;
+    }
+    
